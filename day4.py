@@ -33,20 +33,10 @@ for line in s:
     x, y = line.split(',')
     xl, xr = map(int, x.split('-'))
     yl, yr = map(int, y.split('-'))
-    t = False
 
     for i in range(xl, xr+1):
         if i in range(yl, yr+1):
-            t = True
-            # print(f'{line}: {i} in range{yl, yr+1}')
+            counter += 1
             break
-        if t: break
-
-    if t: counter += 1
 
 print(counter)
-
-
-
-# sections of camp, identified by section id
-# section overlap
