@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-from collections import defaultdict as ddict
 from functools import reduce
 from string import ascii_letters as letters
 from typing import Tuple, List
