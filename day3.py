@@ -19,19 +19,19 @@ def partition(s: str) -> Tuple[str]:
 
 def common(p: Tuple[str]) -> str:
     l, r = p
-    return ''.join(set(l).intersection(set(r)))
+    return ''.join(set(l) & set(r))
 
 def score(s: str) -> int:
     return letters.index(s) + 1
 
-t = [ partition(a) for a in s ]
-t = [ common(a) for a in t ]
-t = [ score(a) for a in t ]
+t = map(partition, s)
+t = map(common, t)
+t = map(score, t)
 
 print(sum(t))
 
 t = [ set(n) for n in s ]
 t = [ (t[i], t[i+1], t[i+2]) for i in range(0, len(t), 3) ]
-t = [ score(reduce(lambda a, b: a.intersection(b), k).pop()) for k in t ]
+t = map(lambda k: score(reduce(lambda a, b: a & b, k).pop()), t)
 
 print(sum(t))
