@@ -31,12 +31,3 @@ for c in s:
 print(sum(map(lambda t: t[2], s)))
 print(sum(map(lambda t: t[3], s)))
 
-
-# m = {
-#     'A': ,
-#     'B': ,
-#     'C': ,
-#     'X': ,
-#     'Y': ,
-#     'Z':
-# }
