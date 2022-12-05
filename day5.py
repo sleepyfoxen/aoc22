@@ -21,17 +21,14 @@ state = list(map(lambda l: l.ljust(len(state[-1]) + 1), state))
 stacks = [ [] for s in state.pop() if s.isdigit() ]
 for l in state[::-1]:
     for i, k in enumerate(range(1, len(l), 4)):
-        c = l[k]
-        if not c.isspace():
-            stacks[i].append(c)
+        stacks[i].append(l[k]) if not l[k].isspace() else None
 
 stacks_ = deepcopy(stacks)
 
 for l in moves:
     if l == '': continue
-    _, n, _, s, _, t = l.split(' ')
-    n, s, t = map(int, (n, s, t))
-    for i in range(n):
+    n, s, t = (int(x) for x in l.split(' ') if x.isdigit())
+    for _ in range(n):
         stacks[t - 1].append(stacks[s - 1].pop())
 
 print(''.join(s[-1] for s in stacks))
@@ -40,10 +37,9 @@ stacks = stacks_
 
 for l in moves:
     if l == '': continue
-    _, n, _, s, _, t = l.split(' ')
-    n, s, t = map(int, (n, s, t))
+    n, s, t = (int(x) for x in l.split(' ') if x.isdigit())
     tmp = []
-    for i in range(n):
+    for _ in range(n):
         tmp.append(stacks[s - 1].pop())
     stacks[t - 1].extend(tmp[::-1])
 
