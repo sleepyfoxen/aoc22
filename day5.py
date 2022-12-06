@@ -26,16 +26,13 @@ stacks_ = deepcopy(stacks)
 
 for l in moves:
     n, s, t = ( int(x) for x in l.split(' ') if x.isdigit() )
+
     for _ in range(n):
         stacks[t - 1].append(stacks[s - 1].pop())
 
-print(''.join(s[-1] for s in stacks))
+    stacks_[s - 1], tmp = stacks_[s - 1][:-n], stacks_[s - 1][-n:]
+    stacks_[t - 1].extend(tmp)
 
-stacks = stacks_
-
-for l in moves:
-    n, s, t = ( int(x) for x in l.split(' ') if x.isdigit() )
-    stacks[s - 1], tmp = stacks[s - 1][:-n], stacks[s - 1][-n:]
-    stacks[t - 1].extend(tmp)
 
 print(''.join(s[-1] for s in stacks))
+print(''.join(s[-1] for s in stacks_))
