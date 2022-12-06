@@ -10,6 +10,12 @@ s = '''2-4,6-8
 with open('day4.input', 'r') as f:
     s = f.read().strip().split('\n')
 
+lines = []
+for line in s:
+    x, y = line.split(',')
+    xl, xr, yl, yr = map(int, (*x.split('-'), *y.split('-')))
+    lines.append((xl, xr, yl, yr))
+
 counter = sum(
     int(
         all(
@@ -18,25 +24,13 @@ counter = sum(
         all(
             p in range(xl, xr+1) for p in range(yl, yr+1)
         )
-    )
-    for xl, xr, yl, yr in ( (int(xl), int(xr), int(yl), int(yr))
-    for xl, xr, yl, yr in ( (*x.split('-'), *y.split('-'))
-                            for x, y in ( line.split(',')
-                                          for line in s ) )
-    )
-)
+    ) for xl, xr, yl, yr in lines)
 
 print(counter)
 
-counter = 0
-
-for line in s:
-    x, y = line.split(',')
-    xl, xr, yl, yr = map(int, (*x.split('-'), *y.split('-')))
-
-    counter += int(
-        any(
-            p in range(yl, yr+1) for p in range(xl, xr+1)
-        ))
+counter = sum(
+    any(
+        p in range(yl, yr+1) for p in range(xl, xr+1)
+    ) for xl, xr, yl, yr in lines)
 
 print(counter)
