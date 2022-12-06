@@ -17,20 +17,14 @@ for line in s:
     lines.append((xl, xr, yl, yr))
 
 counter = sum(
-    int(
-        all(
-            p in range(yl, yr+1) for p in range(xl, xr+1)
-        ) or
-        all(
-            p in range(xl, xr+1) for p in range(yl, yr+1)
-        )
-    ) for xl, xr, yl, yr in lines)
+    all(p in range(yl, yr+1) for p in range(xl, xr+1)) or
+    all(p in range(xl, xr+1) for p in range(yl, yr+1))
+    for xl, xr, yl, yr in lines)
 
 print(counter)
 
 counter = sum(
-    any(
-        p in range(yl, yr+1) for p in range(xl, xr+1)
-    ) for xl, xr, yl, yr in lines)
+    any(p in range(yl, yr+1) for p in range(xl, xr+1))
+    for xl, xr, yl, yr in lines)
 
 print(counter)
