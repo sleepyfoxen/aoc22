@@ -16,9 +16,8 @@ with open('day5.input', 'r') as f:
     s = f.read().split('\n\n')
 
 state, moves = map(lambda t: t.split('\n'), s)
-state = list(map(lambda l: l.ljust(len(state[-1]) + 1), state))
-
 stacks = [ [] for s in state.pop() if s.isdigit() ]
+
 for l in state[::-1]:
     for i, k in enumerate(range(1, len(l), 4)):
         stacks[i].append(l[k]) if not l[k].isspace() else None
@@ -27,7 +26,7 @@ stacks_ = deepcopy(stacks)
 
 for l in moves:
     if l == '': continue
-    n, s, t = (int(x) for x in l.split(' ') if x.isdigit())
+    n, s, t = ( int(x) for x in l.split(' ') if x.isdigit() )
     for _ in range(n):
         stacks[t - 1].append(stacks[s - 1].pop())
 
@@ -37,7 +36,7 @@ stacks = stacks_
 
 for l in moves:
     if l == '': continue
-    n, s, t = (int(x) for x in l.split(' ') if x.isdigit())
+    n, s, t = ( int(x) for x in l.split(' ') if x.isdigit() )
     tmp = []
     for _ in range(n):
         tmp.append(stacks[s - 1].pop())
