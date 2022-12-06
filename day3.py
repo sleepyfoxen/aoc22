@@ -31,7 +31,7 @@ t = map(score, t)
 print(sum(t))
 
 t = [ set(n) for n in s ]
-t = [ (t[i], t[i+1], t[i+2]) for i in range(0, len(t), 3) ]
-t = map(lambda k: score(reduce(lambda a, b: a & b, k).pop()), t)
+t = [ t[i:i+3] for i in range(0, len(t), 3) ]
+t = [ score(reduce(lambda a, b: a & b, k).pop()) for k in t ]
 
 print(sum(t))

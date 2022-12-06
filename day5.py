@@ -35,9 +35,7 @@ stacks = stacks_
 
 for l in moves:
     n, s, t = ( int(x) for x in l.split(' ') if x.isdigit() )
-    tmp = []
-    for _ in range(n):
-        tmp.append(stacks[s - 1].pop())
-    stacks[t - 1].extend(tmp[::-1])
+    stacks[s - 1], tmp = stacks[s - 1][:-n], stacks[s - 1][-n:]
+    stacks[t - 1].extend(tmp)
 
 print(''.join(s[-1] for s in stacks))
