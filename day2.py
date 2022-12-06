@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 
-from itertools import chain
-
 s = '''A Y
 B X
 C Z'''.strip().split('\n')
