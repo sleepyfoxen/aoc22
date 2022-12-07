@@ -22,14 +22,13 @@ for l in state[::-1]:
     for i, k in enumerate(range(1, len(l), 4)):
         stacks[i].append(l[k]) if not l[k].isspace() else None
 
-stacks_ = deepcopy(stacks)
+stacks_ = deepcopy(stacks)  # part 2
 
 for l in moves:
     n, s, t = ( int(x) for x in l.split(' ') if x.isdigit() )
     s, t = s - 1, t - 1  # source, target
 
-    for _ in range(n):
-        stacks[t].append(stacks[s].pop())
+    stacks[t].extend([ stacks[s].pop() for _ in range(n) ])
 
     stacks_[s], tmp = stacks_[s][:-n], stacks_[s][-n:]
     stacks_[t].extend(tmp)
