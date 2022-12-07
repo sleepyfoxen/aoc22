@@ -34,18 +34,19 @@ pwd = []
 paths = ddict(int)
 
 for c in s:
-    if len(c) == 1 and c[0].startswith('cd '):
-        _, tmp = c[0].split(' ')
-        if tmp == '..': pwd.pop()
-        else: pwd.append(tmp)
+    cmd, c = c[0], c[1:]
 
-    if c[0] == 'ls':
-        sz = sum(int(t.split(' ')[0]) for t in c[1:] if not t.startswith('dir '))
+    if cmd.startswith('cd '):
+        _, tmp = cmd.split(' ')
+        pwd.pop() if tmp == '..' else pwd.append(tmp)
+
+    if cmd == 'ls':
+        sz = sum(int(t.split(' ')[0]) for t in c if not t.startswith('dir '))
         paths[tuple(pwd)] += sz
 
 for p in sorted(paths, key=len, reverse=True):
     paths[p[:-1]] += paths[p]
 
-needed = 30000000 - (70000000 - paths[('/',)])
+needed = paths[('/',)] - 40000000
 print(sum(sz for sz in paths.values() if sz < 100000))
 print(min(sz for sz in paths.values() if sz >= needed))
