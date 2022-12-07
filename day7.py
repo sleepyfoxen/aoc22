@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-from typing import List
 from collections import defaultdict as ddict
 
 s = '''$ cd /
@@ -41,8 +40,7 @@ for c in s:
         else: pwd.append(tmp)
 
     if c[0] == 'ls':
-        sz = sum(map(int, (t.split(' ')[0]
-                           for t in c[1:] if not t.startswith('dir '))))
+        sz = sum(int(t.split(' ')[0]) for t in c[1:] if not t.startswith('dir '))
         paths[tuple(pwd)] += sz
 
 for p in sorted(paths, key=len, reverse=True):
