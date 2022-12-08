@@ -43,9 +43,10 @@ def visible(i: int, s: List[int]) -> int:
     return count
 
 scores = []
+cols = tuple(zip(*s))
 for i, r in enumerate(s):
     for j, t in enumerate(r):
-        c = list(zip(*s))[j]
+        c = cols[j]
 
         ltr, utd = visible(j, r), visible(i, c)
         rtl = visible(len(r) - j - 1, r[::-1])
