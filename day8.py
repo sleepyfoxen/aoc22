@@ -17,16 +17,13 @@ def visible(s: List[int]) -> List[bool]:
     v = [ t > max((*s[:i], -1)) for i, t in enumerate(s) ]
     return v
 
-rows = []
-for r in s:
-    ltr, rtl = visible(r), visible(r[::-1])[::-1]
+rows, cols = [], []
+for r, c in zip(s, zip(*s)):
+    ltr, utd = map(visible, (r, c))
+    rtl, dtu = map(lambda t: visible(t[::-1])[::-1], (r, c))
     row = [ l or r for l, r in zip(ltr, rtl) ]
-    rows.append(row)
-
-cols = []
-for c in zip(*s):
-    utd, dtu = visible(c), visible(c[::-1])[::-1]
     col = [ u or d for u, d in zip(utd, dtu) ]
+    rows.append(row)
     cols.append(col)
 
 total = 0
@@ -35,8 +32,7 @@ for r, c in zip(rows, zip(*cols)):
 
 print(total)
 
-
-def vis(i: int, s: List[int]) -> int:
+def visible(i: int, s: List[int]) -> int:
     count, t, i = 0, s[i], i - 1
 
     while s[i] < t and i >= 0:
@@ -51,9 +47,9 @@ for i, r in enumerate(s):
     for j, t in enumerate(r):
         c = list(zip(*s))[j]
 
-        ltr, utd = vis(j, r), vis(i, c)
-        rtl = vis(len(r) - j - 1, r[::-1])
-        dtu = vis(len(c) - i - 1, c[::-1])
+        ltr, utd = visible(j, r), visible(i, c)
+        rtl = visible(len(r) - j - 1, r[::-1])
+        dtu = visible(len(c) - i - 1, c[::-1])
         sc = ltr * rtl * utd * dtu
         scores.append(sc)
 
