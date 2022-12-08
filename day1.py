@@ -18,6 +18,6 @@ s = '''1000
 with open('day1.input', 'r') as f:
     s = f.read().strip().split('\n\n')
 
-s = [tuple(c) for c in map(lambda c: map(int, c), [c.split('\n') for c in s])]
+s = [ (*c,) for c in map(lambda c: map(int, c), [c.split('\n') for c in s]) ]
 print(max(map(sum, s)))
 print(sum(sorted(map(sum, s), reverse=True)[:3]))
