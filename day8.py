@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from typing import List
+from typing import Tuple
 
 s = '''30373
 25512
@@ -11,14 +11,15 @@ s = '''30373
 with open('day8.input', 'r') as f:
     s = f.read().strip().split('\n')
 
-s = [ [ int(t) for t in r ] for r in s ]
+s = tuple(tuple(map(int, r)) for r in s)
+s_ = tuple(zip(*s))  # s inverted: columns are now rows
 
-def outer_visible(ts: List[int]) -> List[bool]:
-    v = [ t > max((*ts[:i], -1)) for i, t in enumerate(ts) ]
+def outer_visible(ts: Tuple[int]) -> Tuple[bool]:
+    v = tuple( t > max((*ts[:i], -1)) for i, t in enumerate(ts) )
     return v
 
 rows, cols = [], []
-for r, c in zip(s, zip(*s)):
+for r, c in zip(s, s_):
     ltr, utd = map(outer_visible, (r, c))
     rtl, dtu = map(lambda t: outer_visible(t[::-1])[::-1], (r, c))
     row = [ l or r for l, r in zip(ltr, rtl) ]
@@ -32,7 +33,7 @@ for r, c in zip(rows, zip(*cols)):
 
 print(total)
 
-def inner_visible(i: int, ts: List[int]) -> int:
+def inner_visible(i: int, ts: Tuple[int]) -> int:
     count, t, i = 0, ts[i], i - 1
 
     while ts[i] < t and i >= 0:
@@ -43,10 +44,9 @@ def inner_visible(i: int, ts: List[int]) -> int:
     return count
 
 scores = []
-cols = tuple(zip(*s))
 for i, r in enumerate(s):
     for j, t in enumerate(r):
-        c = cols[j]
+        c = s_[j]
 
         ltr, utd = inner_visible(j, r), inner_visible(i, c)
         rtl = inner_visible(len(r) - j - 1, r[::-1])
