@@ -2,7 +2,7 @@
 
 s = '''A Y
 B X
-C Z'''.strip().split('\n')
+C Z'''.split('\n')
 
 with open('day2.input', 'r') as f:
     s = f.read().strip().split('\n')

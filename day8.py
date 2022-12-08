@@ -13,14 +13,14 @@ with open('day8.input', 'r') as f:
 
 s = [ [ int(t) for t in r ] for r in s ]
 
-def visible(s: List[int]) -> List[bool]:
-    v = [ t > max((*s[:i], -1)) for i, t in enumerate(s) ]
+def outer_visible(ts: List[int]) -> List[bool]:
+    v = [ t > max((*ts[:i], -1)) for i, t in enumerate(ts) ]
     return v
 
 rows, cols = [], []
 for r, c in zip(s, zip(*s)):
-    ltr, utd = map(visible, (r, c))
-    rtl, dtu = map(lambda t: visible(t[::-1])[::-1], (r, c))
+    ltr, utd = map(outer_visible, (r, c))
+    rtl, dtu = map(lambda t: outer_visible(t[::-1])[::-1], (r, c))
     row = [ l or r for l, r in zip(ltr, rtl) ]
     col = [ u or d for u, d in zip(utd, dtu) ]
     rows.append(row)
@@ -32,14 +32,14 @@ for r, c in zip(rows, zip(*cols)):
 
 print(total)
 
-def visible(i: int, s: List[int]) -> int:
-    count, t, i = 0, s[i], i - 1
+def inner_visible(i: int, ts: List[int]) -> int:
+    count, t, i = 0, ts[i], i - 1
 
-    while s[i] < t and i >= 0:
+    while ts[i] < t and i >= 0:
         count += 1
         i -= 1
 
-    if i >= 0: count += 1  # blocked by this tree
+    count += int(i >= 0)  # blocked by this tree
     return count
 
 scores = []
@@ -48,9 +48,9 @@ for i, r in enumerate(s):
     for j, t in enumerate(r):
         c = cols[j]
 
-        ltr, utd = visible(j, r), visible(i, c)
-        rtl = visible(len(r) - j - 1, r[::-1])
-        dtu = visible(len(c) - i - 1, c[::-1])
+        ltr, utd = inner_visible(j, r), inner_visible(i, c)
+        rtl = inner_visible(len(r) - j - 1, r[::-1])
+        dtu = inner_visible(len(c) - i - 1, c[::-1])
         sc = ltr * rtl * utd * dtu
         scores.append(sc)
 

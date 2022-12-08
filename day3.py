@@ -9,7 +9,7 @@ jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
 PmmdzqPrVvPwwTWBwg
 wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
 ttgJtRGJQctTZtZT
-CrZsJsPPZsGzwwsLwLmpwMDw'''.strip().split('\n')
+CrZsJsPPZsGzwwsLwLmpwMDw'''.split('\n')
 
 with open('day3.input', 'r') as f:
     s = f.read().strip().split('\n')
