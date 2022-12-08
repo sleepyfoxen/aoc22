@@ -14,17 +14,18 @@ lines = []
 for line in s:
     x, y = line.split(',')
     xl, xr, yl, yr = map(int, (*x.split('-'), *y.split('-')))
-    lines.append((xl, xr, yl, yr))
+    xs, ys = range(xl, xr+1), range(yl, yr+1)
+    lines.append((xs, ys))
 
 counter = sum(
-    all(p in range(yl, yr+1) for p in range(xl, xr+1)) or
-    all(p in range(xl, xr+1) for p in range(yl, yr+1))
-    for xl, xr, yl, yr in lines)
+    all(p in ys for p in xs) or
+    all(p in xs for p in ys)
+    for xs, ys in lines)
 
 print(counter)
 
 counter = sum(
-    any(p in range(yl, yr+1) for p in range(xl, xr+1))
-    for xl, xr, yl, yr in lines)
+    any(p in ys for p in xs)
+    for xs, ys in lines)
 
 print(counter)
