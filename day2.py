@@ -28,3 +28,6 @@ for c in s:
 
 print(sum(map(lambda t: t[2], s)))
 print(sum(map(lambda t: t[3], s)))
+
+
+# lookup table

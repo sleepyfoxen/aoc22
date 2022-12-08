@@ -21,3 +21,7 @@ with open('day1.input', 'r') as f:
 s = [ (*c,) for c in map(lambda c: map(int, c), [ c.split('\n') for c in s ]) ]
 print(max(map(sum, s)))
 print(sum(sorted(map(sum, s), reverse=True)[:3]))
+
+
+# split on double newline and sum the numbers you get, collect results.
+# look up the answers.

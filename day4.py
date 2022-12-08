@@ -29,3 +29,10 @@ counter = sum(
     for xs, ys in lines)
 
 print(counter)
+
+
+# map each line to a range() object, and use its __contains__ method to check
+# for overlaps: `p in ys for p in xs` checks each int in xs for inclusion in ys
+
+# in part 1, one half must entirely overlap the other, i.e: all() of xs must be
+# in ys or vise-versa; while in part 2 any() overlap will work.

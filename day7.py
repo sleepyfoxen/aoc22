@@ -50,3 +50,10 @@ for p in sorted(paths, key=len, reverse=True):
 needed = paths[('/',)] - 40000000
 print(sum(sz for sz in paths.values() if sz < 100000))
 print(min(sz for sz in paths.values() if sz >= needed))
+
+
+# the input is split on $ first, then by newline, so output of commands ends up
+# in the same processing block as their input. `pwd` acts as a stack and its
+# value is taken as a key to the (path, size) dictionary, which is used to look
+# up the answers. initially the value, `sz` only includes its own directory
+# but after the input is fully read, the parent directory sizes are updated.

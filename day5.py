@@ -35,3 +35,11 @@ for l in moves:
 
 print(''.join(s[-1] for s in stacks))
 print(''.join(s[-1] for s in stacks_))
+
+
+# split on the double newline into initial state and operations.
+# set up the stacks by walking backwards and grabbing each fourth character.
+# "parsing" moves is just str.isdigit() to extract the values.
+
+# for part 1, .pop() gets the top of the stack :)
+# for part 2, move the top n elements instead.

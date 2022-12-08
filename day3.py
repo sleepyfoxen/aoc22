@@ -35,3 +35,7 @@ t = [ t[i:i+3] for i in range(0, len(t), 3) ]
 t = [ score(reduce(lambda a, b: a & b, k).pop()) for k in t ]
 
 print(sum(t))
+
+
+# only unique characters matter, so sets and their __intersection__ method finds
+# common characters.

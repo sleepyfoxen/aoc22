@@ -55,3 +55,15 @@ for i, r in enumerate(s):
         scores.append(sc)
 
 print(max(scores))
+
+
+# `outer_visible()` returns True for each tree in the row that is visible from
+# the left (i.e bigger than the maximum of trees to its left).
+
+# there are four directions to consider, left-to-right ways (`ltr`, `rtl`) and
+# up-to-down (`utd`, `dtu`). `zip(*s)` inverts a list of lists so that moving
+# "down a column" becomes "along a row". this way, we can use `outer_visible()`
+# for all directions and combine the results using `or`.
+
+# `inner_visible()` returns how many trees can be seen leftways from the given
+# similarly the grid is rotated and results combined, this time using *.

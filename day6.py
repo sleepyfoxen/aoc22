@@ -10,3 +10,6 @@ b = next(i for i in range(14, len(s)) if len(set(s[i-14:i])) == 14)
 
 print(a)
 print(b)
+
+
+# index of first n-length nonrepeating sequence in input.
