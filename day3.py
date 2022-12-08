@@ -2,7 +2,7 @@
 
 from functools import reduce
 from string import ascii_letters as letters
-from typing import Tuple, List
+from typing import Tuple
 
 s = '''vJrwpWtwJgWrhcsFMMfFFhFp
 jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
