@@ -80,3 +80,14 @@ for l in s:
     if debug: print(f'{l}\n{tails}\nsum {sum(sum(r) for r in grid)}\n')
 
 print(sum(sum(r) for r in grid))
+
+
+# 1. make a big grid of zeros.
+# 2. set (x, y) = 1 in the grid if the tail touches (x, y) by modelling where
+#    the snake segments go.
+# 3. (x, y) is represented as y+xj to make the maths easier.
+# 4. sum the grid.
+
+# each snake segment `s` follows its predecessor `p` by calculating `p - s`,
+# this gives distance and direction. check that distance > sqrt(2) and then
+# clamp() the distance to move a maximum of one unit.
