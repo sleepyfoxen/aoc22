@@ -23,8 +23,8 @@ debug = True
 with open('day9.input', 'r') as f:
     s = f.read().strip().split('\n')
 
-grid = [ [ 0 ] * 500 for _ in range(500) ]  # a guess
-head = tail = 250+250j
+grid = [ [ 0 ] * 400 for _ in range(400) ]  # a guess
+head = tail = 200+200j
 directions = {
     'U': -1+0j,
     'D':  1+0j,
@@ -58,9 +58,6 @@ print(sum(sum(r) for r in grid))
 grid = [ [ 0 ] * 400 for _ in range(400) ]
 tails = [ (200+200j) for _ in range(10) ]
 
-from copy import deepcopy
-g2 = deepcopy(grid)
-
 for l in s:
     d, n = l.split(' ')
     n = int(n)
@@ -80,6 +77,6 @@ for l in s:
             if i == 9:
                 grid[int(tail.real)][int(tail.imag)] = 1
 
-    if debug: print(f'{l}\n{tails}\nsum {sum(sum(r) for r in grid)}\n\n')
+    if debug: print(f'{l}\n{tails}\nsum {sum(sum(r) for r in grid)}\n')
 
 print(sum(sum(r) for r in grid))
