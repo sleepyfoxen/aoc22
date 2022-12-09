@@ -21,9 +21,8 @@ U 20'''.split('\n')
 with open('day9.input', 'r') as f:
     s = f.read().strip().split('\n')
 
-grid = [ [ 0 ] * 400 for _ in range(400) ]  # a guess
-grid_ = [ [ 0 ] * 400 for _ in range(400) ]  # for part 2
-tails = [ (200+200j) for _ in range(10) ]
+tails = [ (0+0j) for _ in range(10) ]
+grid, grid_ = {}, {}
 
 directions = {
     'U': -1+0j,
@@ -54,11 +53,11 @@ for l in s:
 
             tails[i] = tail
             
-            if i == 1: grid[int(tail.real)][int(tail.imag)] = 1
-            if i == 9: grid_[int(tail.real)][int(tail.imag)] = 1
+            if i == 1: grid[tail] = 1
+            if i == 9: grid_[tail] = 1
 
-print(sum(sum(r) for r in grid))
-print(sum(sum(r) for r in grid_))
+print(sum(grid.values()))
+print(sum(grid_.values()))
 
 
 # 1. make a big grid of zeros.
