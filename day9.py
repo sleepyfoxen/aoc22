@@ -18,13 +18,13 @@ D 10
 L 25
 U 20'''.split('\n')
 
-debug = True
-
 with open('day9.input', 'r') as f:
     s = f.read().strip().split('\n')
 
 grid = [ [ 0 ] * 400 for _ in range(400) ]  # a guess
-head = tail = 200+200j
+grid_ = [ [ 0 ] * 400 for _ in range(400) ]  # for part 2
+tails = [ (200+200j) for _ in range(10) ]
+
 directions = {
     'U': -1+0j,
     'D':  1+0j,
@@ -40,32 +40,12 @@ def clamp(z: complex) -> complex:
 
 for l in s:
     d, n = l.split(' ')
-    n = int(n)
-
-    for _ in range(n):
-        head += directions[d]
-        dist = head - tail
-
-        if abs(dist) > 1.42:  # sqrt(2) -> 1.414
-            tail += clamp(dist)
-
-        grid[int(tail.real)][int(tail.imag)] = 1
-
-
-print(sum(sum(r) for r in grid))
-
-# reset for part 2
-grid = [ [ 0 ] * 400 for _ in range(400) ]
-tails = [ (200+200j) for _ in range(10) ]
-
-for l in s:
-    d, n = l.split(' ')
-    n = int(n)
+    d, n = directions[d], int(n)
 
     for _ in range(n):
         for i, tail in enumerate(tails):
             if i == 0:
-                tails[i] += directions[d]
+                tails[i] += d
                 continue
 
             dist = tails[i - 1] - tail
@@ -73,13 +53,12 @@ for l in s:
                 tail += clamp(dist)
 
             tails[i] = tail
-
-            if i == 9:
-                grid[int(tail.real)][int(tail.imag)] = 1
-
-    if debug: print(f'{l}\n{tails}\nsum {sum(sum(r) for r in grid)}\n')
+            
+            if i == 1: grid[int(tail.real)][int(tail.imag)] = 1
+            if i == 9: grid_[int(tail.real)][int(tail.imag)] = 1
 
 print(sum(sum(r) for r in grid))
+print(sum(sum(r) for r in grid_))
 
 
 # 1. make a big grid of zeros.
