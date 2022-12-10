@@ -157,7 +157,6 @@ counts = {
 
 cycle = 0
 reg = 1
-
 strs = []
 
 for l in s:
@@ -170,26 +169,24 @@ for l in s:
         continue
 
     if l.startswith('addx'):
-        if (cycle - 19) % 40 == 0:
-            strs.append(reg * (cycle + 1))
+        cycle += 1
+        if (cycle - 20) % 40 == 0:
+            strs.append(reg * cycle)
 
         reg += int(l.split(' ')[1])
-        cycle += 1
 
 print(sum(strs))
 
 
-# reset for part 2
-grid = [ ['.'] * 40 for _ in range(6) ]
+grid = [ [' '] * 40 for _ in range(6) ]  # reset
 lines = ( l for l in s )
 
 reg = 1
 flag = False
-
 for cycle in range(len(s) * 2):
-    try:
-        if not flag: line = next(lines)
-    except StopIteration: break
+    if not flag:
+        try: line = next(lines)
+        except StopIteration: break
 
     if abs(cycle % 40 - reg) < 2:
         grid[cycle // 40][cycle % 40] = '#'
@@ -201,5 +198,4 @@ for cycle in range(len(s) * 2):
         else:
             flag = True
 
-for l in grid:
-    print(''.join(l))
+for l in grid: print(''.join(l))
