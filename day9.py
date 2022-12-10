@@ -22,7 +22,7 @@ with open('day9.input', 'r') as f:
     s = f.read().strip().split('\n')
 
 tails = [ (0+0j) for _ in range(10) ]
-grid, grid_ = {}, {}
+grid, grid_ = set(), set()
 
 directions = {
     'U': -1+0j,
@@ -52,19 +52,16 @@ for l in s:
                 tail += clamp(dist)
 
             tails[i] = tail
-            
-            if i == 1: grid[tail] = 1
-            if i == 9: grid_[tail] = 1
 
-print(sum(grid.values()))
-print(sum(grid_.values()))
+            if i == 1: grid.add(tail)
+            if i == 9: grid_.add(tail)
 
+print(len(grid))
+print(len(grid_))
 
-# 1. make a big grid of zeros.
-# 2. set (x, y) = 1 in the grid if the tail touches (x, y) by modelling where
-#    the snake segments go.
-# 3. (x, y) is represented as y+xj to make the maths easier.
-# 4. sum the grid.
+# update the location of each snake segment by decoding the input.
+# check where the second and last segments are and mark the locations by
+# adding them to a set.
 
 # each snake segment `s` follows its predecessor `p` by calculating `p - s`,
 # this gives distance and direction. check that distance > sqrt(2) and then
