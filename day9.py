@@ -33,9 +33,9 @@ directions = {
 
 def clamp(z: complex) -> complex:
     a, b = z.real, z.imag
-    if a == 0: return 0 + (b // abs(b) * 1j)
-    if b == 0: return (a // abs(a)) + 0j
-    return (a // abs(a) + (b // abs(b) * 1j))
+    if a == 0: return b // abs(b) * 1j
+    if b == 0: return a // abs(a) + 0j
+    return a // abs(a) + b // abs(b) * 1j
 
 for l in s:
     d, n = l.split(' ')
