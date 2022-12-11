@@ -150,52 +150,33 @@ noop'''.split('\n')
 with open('day10.input', 'r') as f:
     s = f.read().strip().split('\n')
 
-counts = {
-    'addx': 2,
-    'noop': 1
-}
-
-cycle = 0
-reg = 1
-strs = []
+cycle, reg, ps = 0, 1, []
 
 for l in s:
     cycle += 1
-
-    if (cycle - 20) % 40 == 0:
-        strs.append(reg * cycle)
-
-    if l.startswith('noop'):
-        continue
-
+    if (cycle - 20) % 40 == 0: ps.append(reg * cycle)
     if l.startswith('addx'):
         cycle += 1
-        if (cycle - 20) % 40 == 0:
-            strs.append(reg * cycle)
-
+        if (cycle - 20) % 40 == 0: ps.append(reg * cycle)
         reg += int(l.split(' ')[1])
 
-print(sum(strs))
+print(sum(ps))
 
 
-grid = [ [' '] * 40 for _ in range(6) ]  # reset
+grid = [ ['🐁'] * 40 for _ in range(6) ]
 lines = ( l for l in s )
+reg, flag = 1, False
 
-reg = 1
-flag = False
 for cycle in range(len(s) * 2):
     if not flag:
         try: line = next(lines)
         except StopIteration: break
 
     if abs(cycle % 40 - reg) < 2:
-        grid[cycle // 40][cycle % 40] = '#'
+        grid[cycle // 40][cycle % 40] = '🦊'
 
     if line.startswith('addx'):
-        if flag:
-            reg += int(line.split(' ')[1])
-            flag = False
-        else:
-            flag = True
+        if flag: reg += int(line.split(' ')[1])
+        flag ^= True  # flip
 
 for l in grid: print(''.join(l))
